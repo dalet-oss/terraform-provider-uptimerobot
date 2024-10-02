@@ -27,6 +27,7 @@ func dataSourceAlertContactRead(d *schema.ResourceData, m interface{}) error {
 	}
 
 	friendlyName := d.Get("friendly_name").(string)
+	value := d.Get("value").(string)
 
 	var alertContact uptimerobotapi.AlertContact
 
@@ -35,9 +36,13 @@ func dataSourceAlertContactRead(d *schema.ResourceData, m interface{}) error {
 			alertContact = a
 			break
 		}
+		if value != "" && a.Value == value {
+			alertContact = a
+			break
+		}
 	}
 	if alertContact == (uptimerobotapi.AlertContact{}) {
-		return fmt.Errorf("failed to find alert contact by name %s", friendlyName)
+		return fmt.Errorf("failed to find alert contact by either name ('%s') or value ('%s')", friendlyName, value)
 	}
 
 	d.SetId(alertContact.ID)
