@@ -96,6 +96,7 @@ func (client UptimeRobotApiClient) GetMonitor(id int) (m Monitor, err error) {
 	data.Add("ssl", fmt.Sprintf("%d", 1))
 	data.Add("custom_http_headers", fmt.Sprintf("%d", 1))
 	data.Add("alert_contacts", fmt.Sprintf("%d", 1))
+	data.Add("http_request_details", "true")
 
 	body, err := client.MakeCall(
 		"getMonitors",
@@ -153,6 +154,7 @@ func (client UptimeRobotApiClient) GetMonitor(id int) (m Monitor, err error) {
 			// PS: There seems to be a bug in the UR api as it never returns this value
 			m.HTTPAuthType = intToString(monitorHTTPAuthType, int(val.(float64)))
 		}
+		m.HTTPMethod = "GET" // default if unspecified, saves into tfstate
 		if method := monitor["http_method"]; method != nil {
 			m.HTTPMethod = intToString(monitorHTTPMethod, int(monitor["http_method"].(float64)))
 		}
