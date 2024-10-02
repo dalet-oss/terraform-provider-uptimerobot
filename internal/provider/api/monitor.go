@@ -9,10 +9,11 @@ import (
 )
 
 var monitorType = map[string]int{
-	"http":    1,
-	"keyword": 2,
-	"ping":    3,
-	"port":    4,
+	"http":      1,
+	"keyword":   2,
+	"ping":      3,
+	"port":      4,
+	"heartbeat": 5,
 }
 var MonitorType = mapKeys(monitorType)
 
