@@ -24,6 +24,7 @@ var alertContactType = map[string]int{
 	"pro-sms":     8,
 	"pushover":    9,
 	"slack":       11,
+	"push":        13,
 	"voice-call":  14,
 	"splunk":      15,
 	"pagerduty":   16,
